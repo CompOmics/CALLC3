@@ -37,7 +37,7 @@ def cli() -> None:
         filepath.write_text(json.dumps({}))  
 
 @cli.command(name='init')
-@click.argument('project_name', default=None, type=str)
+@click.argument('project_name', default=None, type=str, required=False)
 def init_project(project_name: str | None = None) -> None:
 
     '''Run command to initialize a project.'''
@@ -124,7 +124,7 @@ def init_project(project_name: str | None = None) -> None:
         sys.exit(1)
 
 @cli.command(name='train')
-@click.argument('input_path', default=None, type=str)
+@click.argument('input_path', default=None, type=str, required=False)
 def train(input_path: str | None = None) -> None:
     '''Run command to train a model.'''
 
@@ -297,7 +297,7 @@ def train(input_path: str | None = None) -> None:
 
 
 @cli.command(name='predict')
-@click.argument('input_path', default=None, type=str)
+@click.argument('input_path', default=None, type=str, required=False)
 def predict(input_path: str | None = None) -> None:
     '''Run command to inference a model.'''
 
@@ -363,7 +363,7 @@ def list_projects() -> None:
     print_project_list(metadata)
 
 @cli.command(name='detail')
-@click.argument('project_name', default=None, type=str)
+@click.argument('project_name', default=None, type=str, required=False)
 def detail_project(project_name: str | None = None) -> None:
     '''Run command to get details on a project.'''
 
