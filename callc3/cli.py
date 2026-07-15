@@ -112,10 +112,10 @@ def init_project(project_name: str | None = None) -> None:
         )
 
         featurizer.save(project_folder / 'featurizer.json')
-        click.secho(f'\nFeaturizer saved → {project_folder / 'featurizer.json'}', fg='green', bold=True)
+        click.secho(f"\nFeaturizer saved → {project_folder / 'featurizer.json'}", fg='green', bold=True)
 
         model.save(project_folder / 'model.keras')
-        click.secho(f'Model saved → {project_folder / 'model.keras'}\n', fg='green', bold=True)
+        click.secho(f"Model saved → {project_folder / 'model.keras'}\n", fg='green', bold=True)
 
     except KeyboardInterrupt:
         if project_folder and project_folder.exists():
