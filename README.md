@@ -5,6 +5,9 @@ A CLI tool for training **_context-aware_** GNNs to predict RTs.
 > [!IMPORTANT]
 > Under active development. It is strongly recommended to run CALLC3 in an isolated container (e.g. a Docker container).
 
+> [!IMPORTANT]
+> CALLC3 has only been tested and run in a linux environment.
+
 ## Installation
 
 For CPU users:
