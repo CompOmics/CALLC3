@@ -684,7 +684,7 @@ def print_project_list(project_info):
     header_fmt = '{:<15} {:<40} {:<20}'
     
     click.secho(header_fmt.format('PROJECT NAME', 'PATH', 'CREATED AT'), bold=True, fg='cyan')
-    click.secho('─' * 80, fg='bright_black')
+    click.secho('-' * 80, fg='bright_black')
 
     for name, details in project_info.items():
         path = pathlib.Path(details.get('path', ''))
@@ -729,7 +729,7 @@ def print_project_detail(project_name, project_info):
     header_fmt = '{:<15} {:<40} {:<20}'
 
     click.secho(header_fmt.format('PROJECT NAME', 'PATH', 'CREATED AT'), bold=True, fg='cyan')
-    click.secho('─' * 80, fg='bright_black')
+    click.secho('-' * 80, fg='bright_black')
 
     project_info = project_info[project_name]
     path = project_info.get('path', '')
@@ -748,12 +748,12 @@ def print_project_detail(project_name, project_info):
         return
 
     click.secho('MODELS', fg='cyan', bold=True)
-    click.secho('─' * 48, fg='bright_black')
+    click.secho('-' * 48, fg='bright_black')
     
     for model_name, details in models.items():
         click.echo()
         click.secho(f'  {model_name}', fg='white', bold=True)
-        click.secho(f'  {'─' * 44}', fg='bright_black')
+        click.secho(f'  {'-' * 44}', fg='bright_black')
         
         print_kv('Base Model', details.get('base_model'), indent=2)
         print_kv('Trained At', format_datetime(details.get('trained_at')), value_color='bright_black', indent=2)
