@@ -1,0 +1,54 @@
+[project]
+name = "callc3"
+description = "Deep learning for analytical chemistry"
+readme = "README.md"
+license = { file = "LICENSE" }
+dynamic = ["version"]
+authors = [
+    {name = "CompOmics"},
+    {name = "Alexander Kensert"}
+]
+keywords = [
+    "python",
+    "machine-learning",
+    "deep-learning",
+    "graph-neural-networks",
+    "molecular-graphs",
+    "molecules",
+    "chromatography",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "molcraft",
+    "click",
+    "pyyaml",
+    "questionary",
+]
+
+[project.optional-dependencies]
+gpu = ["molcraft[gpu]"]
+
+[tool.setuptools.dynamic]
+version = { attr = "callc3.__version__" }
+
+[project.urls]
+Homepage = "https://github.com/compomics/callc3"
+
+[tool.setuptools.packages.find]
+include = ["callc3*"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[project.scripts]
+callc3 = "callc3.cli:cli"
