@@ -753,7 +753,7 @@ def print_project_detail(project_name, project_info):
     for model_name, details in models.items():
         click.echo()
         click.secho(f'  {model_name}', fg='white', bold=True)
-        click.secho(f'  {'-' * 44}', fg='bright_black')
+        click.secho(f"  {'-' * 44}", fg='bright_black')
         
         print_kv('Base Model', details.get('base_model'), indent=2)
         print_kv('Trained At', format_datetime(details.get('trained_at')), value_color='bright_black', indent=2)
