@@ -217,7 +217,9 @@ def train(input_path: str | None = None) -> None:
 
     click.secho(f'\nPreparing data:', fg='green', bold=True)
 
-    inputs = featurizer(training_dataframe)
+    inputs = featurizer(training_dataframe, ignore_errors=True, silence_warnings=True)
+    if inputs.num_graphs < len(training_dataframe):
+        click.secho(f'\nCould only featurize {inputs.num_graphs} out of {len(training_dataframe)} molecules.', fg='red', bold=True)
 
     dataset = molcraft.datasets.as_dataset(inputs, shuffle=False, batch_size=None)
     
@@ -329,7 +331,11 @@ def predict(input_path: str | None = None) -> None:
 
     click.secho(f'\nPreparing data:', fg='green', bold=True)
 
-    inputs = featurizer(test_dataframe)
+    inputs = featurizer(test_dataframe, ignore_errors=True, silence_warnings=True)
+    if inputs.num_graphs < len(test_dataframe):
+        click.secho(f'\nCould only featurize {inputs.num_graphs} out of {len(test_dataframe)} molecules.', fg='red', bold=True)
+
+
     dataset = molcraft.datasets.as_dataset(inputs, shuffle=False, batch_size=batch_size)
     
     click.secho(f'\nInferencing model:', fg='green', bold=True)
