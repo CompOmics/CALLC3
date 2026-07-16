@@ -53,15 +53,17 @@ default_bond_features = {'bond_type', 'is_rotatable'}
 default_molecule_features = {'log_p', 'total_polar_surface_area'}
 
 model_sizes = {
-    'Small': 64,
-    'Medium': 128,
-    'Large': 256,
+    'Small (64d)': 64,
+    'Medium (128d)': 128,
+    'Large (256d)': 256,
+    'Extra Large (512d)': 512,
 }
 
 model_depths = {
-    'Shallow': 2,
-    'Medium': 3,
-    'Deep': 5,
+    'Shallow (2r)': 2,
+    'Medium (3r)': 3,
+    'Deep (5r)': 5,
+    'Very Deep (10r)': 10,
 }
 
 model_types = {
@@ -71,14 +73,16 @@ model_types = {
 }
 
 learning_rates = {
-    'Low': 1e-4,
-    'Medium': 5e-4,
-    'High': 1e-3,
+    'Very Low (1e-5)': 1e-5,
+    'Low (1e-4)': 1e-4,
+    'Medium (5e-4)': 5e-4,
+    'High (1e-3)': 1e-3,
 }
 
 dropout_rates = {
-    'None': 0.0,
-    'Low': 0.1,
-    'Medium': 0.2,
-    'High': 0.4,
+    'None (0.0)': 0.0,
+    'Low (0.1)': 0.1,
+    'Medium (0.2)': 0.2,
+    'High (0.3)': 0.3,
+    'Very High (0.5)': 0.5,
 }
