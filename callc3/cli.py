@@ -573,7 +573,11 @@ def select_inference_dataframe(model, dataframe: pandas.DataFrame) -> pandas.Dat
     return dataframe, inference_dataframe[keep]    
 
 def get_metadata_path() -> Path:
-    return Path.home() / '.callc3/metadata.json'
+    domino_working_dir = os.environ.get('DOMINO_WORKING_DIR')
+    home_or_domino_working_dir = (
+        Path(domino_working_dir) if domino_working_dir else Path.home()
+    )
+    return home_or_domino_working_dir / '.callc3/metadata.json'
 
 def get_metadata() -> dict:
     return json.loads(get_metadata_path().read_text())
