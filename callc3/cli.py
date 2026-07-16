@@ -215,9 +215,18 @@ def train(input_path: str | None = None) -> None:
             df.assign(test_group=i) for i, (_, df) in enumerate(iterator)
         ], axis=0)
 
+    use_multiprocessing = False if len(training_dataframe) < 25_000 else True
+    if use_multiprocessing:
+        click.echo('')
+        use_multiprocessing = confirm(
+            f'Found {len(training_dataframe):,} data examples. Prepare data using multiprocessing?', default=False
+        )
+
     click.secho(f'\nPreparing data:', fg='green', bold=True)
 
-    inputs = featurizer(training_dataframe, ignore_errors=True, silence_warnings=True)
+    inputs = featurizer(
+        training_dataframe, multiprocessing=use_multiprocessing, ignore_errors=True, silence_warnings=True
+    )
     if inputs.num_graphs < len(training_dataframe):
         click.secho(f'\nCould only featurize {inputs.num_graphs} out of {len(training_dataframe)} molecules.', fg='red', bold=True)
 
@@ -329,9 +338,18 @@ def predict(input_path: str | None = None) -> None:
 
     batch_size = int(text('Batch size', default='24', validate=validate_int))
 
+    use_multiprocessing = False if len(test_dataframe) < 25_000 else True
+    if use_multiprocessing:
+        click.echo('')
+        use_multiprocessing = confirm(
+            f'Found {len(test_dataframe):,} data examples. Prepare data using multiprocessing?', default=False
+        )
+
     click.secho(f'\nPreparing data:', fg='green', bold=True)
 
-    inputs = featurizer(test_dataframe, ignore_errors=True, silence_warnings=True)
+    inputs = featurizer(
+        test_dataframe, multiprocessing=use_multiprocessing, ignore_errors=True, silence_warnings=True
+    )
     if inputs.num_graphs < len(test_dataframe):
         click.secho(f'\nCould only featurize {inputs.num_graphs} out of {len(test_dataframe)} molecules.', fg='red', bold=True)
 
