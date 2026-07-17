@@ -140,7 +140,7 @@ def train(input_path: str | None = None) -> None:
 
     project_folder = select_project()
 
-    dataframe_path = navigate(start=(input_path or Path.home()))
+    dataframe_path = navigate(start=input_path)
     featurizer_path = project_folder / 'featurizer.json'
     model_path = select_project_model(project_folder)
     
@@ -322,7 +322,7 @@ def predict(input_path: str | None = None) -> None:
     
     project_folder = select_project()
     
-    dataframe_path = navigate(start=(input_path or pathlib.Path.home()))
+    dataframe_path = navigate(start=input_path)
     featurizer_path = project_folder / 'featurizer.json'
     model_path = select_project_model(project_folder)
     
@@ -627,6 +627,9 @@ def add_project_model_result_metadata(project_name: str, model_name: str, test_r
 
 def navigate(start: str | pathlib.Path = '.', suffix: str = '.csv') -> pathlib.Path | None:
 
+    if start is None or not Path(start).exists():
+        start = get_metadata_path().parent.parent
+        
     start = pathlib.Path(start)
     if not start.is_dir():
         default = str(start.resolve())
