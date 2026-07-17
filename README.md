@@ -57,11 +57,13 @@ Run the following from the command line to train a model within a project:
 callc3 train
 ```
 
-Then follow the steps to select the project you intend to work on, the dataset you intend to train on, and the model you intend to train.
+Then follow the steps to select the project you intend to work on, the dataset you intend to train on, and the model you intend to train. A high `learning rate` and a small `batch size` may result in better performance, but come at a potential cost of instability and increased training time.
 
 > [!NOTE]
 > Trained model and validation result will be saved directly in the project folder.
 
+> [!NOTE]
+> `perf` stands for performance (r2-score) and `rel` stands for `reliability` (pearson correlation between predictions and uncertainty estimates).
 
 ### 3. Inference
 
