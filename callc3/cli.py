@@ -509,7 +509,7 @@ def select_training_dataframe(dataframe: pandas.DataFrame) -> pandas.DataFrame:
                 context_choices.append(questionary.Choice(c))
 
         context_cols = checkbox(
-            message='Select context columns',
+            message='Select context columns (press Enter to skip)',
             choices=context_choices,
         )
         if context_cols is None:
