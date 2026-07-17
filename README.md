@@ -10,16 +10,16 @@ A CLI tool for training **_context-aware_** GNNs to predict RTs.
 
 ## Installation
 
-For CPU users:
-
-```bash
-pip install "callc3 @ git+https://github.com/CompOmics/callc3.git"
-```
-
 For GPU users:
 
 ```bash
 pip install "callc3[gpu] @ git+https://github.com/CompOmics/callc3.git"
+```
+
+For CPU users:
+
+```bash
+pip install "callc3 @ git+https://github.com/CompOmics/callc3.git"
 ```
 
 ## CLI
