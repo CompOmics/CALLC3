@@ -154,6 +154,9 @@ def train(input_path: str | None = None) -> None:
     click.secho('\n[Step 1/3] Dataset Configuration', fg='cyan', bold=True)
 
     training_dataframe = select_training_dataframe(dataframe)
+
+    if len(training_dataframe.columns) <= 2:
+        click.secho(f'\nNo context selected.', fg='yellow', bold=True)
     
     context_before = set()
     for layer in model.layers:
@@ -513,7 +516,7 @@ def select_training_dataframe(dataframe: pandas.DataFrame) -> pandas.DataFrame:
             context_cols = []
     else:
         context_cols = None
-
+    
     rename_map = {smiles_col: 'smiles'}
     if label_col is not None:
         rename_map[label_col] = 'label'
