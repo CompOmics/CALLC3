@@ -528,6 +528,9 @@ def select_training_dataframe(dataframe: pandas.DataFrame) -> pandas.DataFrame:
     if context_cols:
         keep.extend(context_cols)
     dataframe = dataframe[keep].copy()
+
+    int_cols = dataframe.select_dtypes(include=['integer']).columns
+    dataframe[int_cols] = dataframe[int_cols].astype(str)
     return dataframe
 
 def select_inference_dataframe(model, dataframe: pandas.DataFrame) -> pandas.DataFrame:
