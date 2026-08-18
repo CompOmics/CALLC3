@@ -528,9 +528,6 @@ def select_training_dataframe(dataframe: pandas.DataFrame) -> pandas.DataFrame:
     if context_cols:
         keep.extend(context_cols)
     dataframe = dataframe[keep].copy()
-
-    int_cols = dataframe.select_dtypes(include=['integer']).columns
-    dataframe[int_cols] = dataframe[int_cols].astype(str)
     return dataframe
 
 def select_inference_dataframe(model, dataframe: pandas.DataFrame) -> pandas.DataFrame:
@@ -546,8 +543,6 @@ def select_inference_dataframe(model, dataframe: pandas.DataFrame) -> pandas.Dat
         if isinstance(layer, AddContext) and layer._field != 'feature':
             if layer._categories is not None:
                 context[layer._field] = layer._categories.copy()
-            elif layer._num_categories is not None:
-                context[layer._field] = layer._num_categories
             else:
                 context[layer._field] = None
 
@@ -561,11 +556,18 @@ def select_inference_dataframe(model, dataframe: pandas.DataFrame) -> pandas.Dat
                 values = [float(v.strip()) for v in values.split(',')]
                 selected_context_values[key] = values
             else:
+                if any([isinstance(v, int) for v in value]):
+                    is_int = True
+                    value = [str(v) for v in value]
+                else:
+                    is_int = False
                 values = checkbox(
                     f'Select {key!r}', 
                     choices=value, 
                     validate=validate_list
                 )
+                if is_int:
+                    values = [int(v) for v in values]
                 selected_context_values[key] = values 
     
     combinations = list(itertools.product(*selected_context_values.values()))
