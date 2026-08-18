@@ -227,8 +227,6 @@ def update_model(
     model: molcraft.models.GraphModel, 
     context: pd.DataFrame
 ) -> molcraft.models.GraphModel:
-
-    context.columns = ['_'.join(x.lower().split()) for x in context.columns]
     
     input_spec = model.get_build_config()['spec']
 
@@ -271,7 +269,7 @@ def extract_context_specs(dataframe: pd.DataFrame) -> dict[str, dict]:
         if pd.api.types.is_float_dtype(series) or pd.api.types.is_bool_dtype(series):
             return {'shape': [None], 'dtype': 'float32'}
         elif pd.api.types.is_integer_dtype(series):
-            return {'shape': [None], 'dtype': 'string'}
+            return {'shape': [None], 'dtype': 'int32'}
         return {'shape': [None], 'dtype': 'string'}
     
     context_specs = {
@@ -290,7 +288,7 @@ def extract_context_layers(dataframe: pd.DataFrame) -> list[molcraft.layers.AddC
         if pd.api.types.is_float_dtype(series) or pd.api.types.is_bool_dtype(series):
             return molcraft.layers.AddContext(**context_kwargs)
         elif pd.api.types.is_integer_dtype(series):
-            return molcraft.layers.AddContext(**context_kwargs, categories=[str(x) for x in series.unique()])
+            return molcraft.layers.AddContext(**context_kwargs, categories=list(series.unique()))
         return molcraft.layers.AddContext(**context_kwargs, categories=list(series.unique()))
 
     return [
