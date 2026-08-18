@@ -228,6 +228,8 @@ def update_model(
     context: pd.DataFrame
 ) -> molcraft.models.GraphModel:
 
+    context.columns = ['_'.join(x.lower().split()) for x in context.columns]
+    
     input_spec = model.get_build_config()['spec']
 
     context_specs = extract_context_specs(context)
