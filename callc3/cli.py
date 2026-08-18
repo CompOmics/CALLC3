@@ -556,14 +556,7 @@ def select_inference_dataframe(model, dataframe: pandas.DataFrame) -> pandas.Dat
             if value is None:
                 values = text(f'Specify {key!r}', validate=validate_float_list)
                 values = [float(v.strip()) for v in values.split(',')]
-                selected_context_values[key] = values 
-            elif not isinstance(value, (list, tuple, set)):
-                values = checkbox(
-                    f'Select {key!r}', 
-                    choices=[str(i) for i in range(value)], 
-                    validate=validate_list
-                )
-                selected_context_values[key] = [int(v) for v in values]
+                selected_context_values[key] = values
             else:
                 values = checkbox(
                     f'Select {key!r}', 
