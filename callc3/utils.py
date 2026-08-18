@@ -290,7 +290,7 @@ def extract_context_layers(dataframe: pd.DataFrame) -> list[molcraft.layers.AddC
         if pd.api.types.is_float_dtype(series) or pd.api.types.is_bool_dtype(series):
             return molcraft.layers.AddContext(**context_kwargs)
         elif pd.api.types.is_integer_dtype(series):
-            return molcraft.layers.AddContext(**context_kwargs, num_categories=int(series.max()))
+            return molcraft.layers.AddContext(**context_kwargs, num_categories=int(series.max() + 1))
         return molcraft.layers.AddContext(**context_kwargs, categories=list(series.unique()))
 
     return [
