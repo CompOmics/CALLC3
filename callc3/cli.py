@@ -232,7 +232,7 @@ def train(input_path: str | None = None) -> None:
     )
     if inputs.num_graphs < len(training_dataframe):
         click.secho(f'\nCould only featurize {inputs.num_graphs} out of {len(training_dataframe)} molecules.', fg='red', bold=True)
-
+        
     dataset = molcraft.datasets.as_dataset(inputs, shuffle=False, batch_size=None)
     
     if cross_validate:
@@ -278,7 +278,7 @@ def train(input_path: str | None = None) -> None:
             for v, v_orig in zip(model.optimizer.variables, original_optimizer_vars):
                 v.assign(v_orig)
 
-        dataframe['test_group'] = dataframe['test_group'].astype(int)
+        dataframe['test_group'] = dataframe['test_group'].astype("Int64")
         validation_result_path = project_folder / f'{model_name.stem}_validation-result.csv'
         dataframe.to_csv(validation_result_path, index=False)
         click.secho(f'\nValidation result saved → {validation_result_path}', fg='green', bold=True)
